@@ -2,6 +2,7 @@ package TBBL;
 
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -88,7 +89,7 @@ public class HighLevelBattle {
    *   itself or the board. It should also have control over removing itself from a character's
    *   modifier list by possibly returning false. 
    **/
-  public void CharacterModifiers() throw Exception {
+  public void CharacterModifiers() throws Exception {
       Character charzard = Character.load("Charzard");
       charzard.modifiers.Add(new Modifier() { // Poison Example
           @Override
@@ -102,6 +103,21 @@ public class HighLevelBattle {
       charzard.submit(charzard.getMoves().submit("Scratch"));
       board = battle.nextTurn();
       assert.true(charzard.health < 100 && charzard.health > 89);
+  }
+  
+  @Test
+  public void CharacterLoads() throws Exception {
+    Character charzard = Character.load("Charzard");
+    assertNotNull(charzard);
+  }
+  
+  @Test
+  public void CharacterCanBeDefined() throws Exception {
+    Character charzard = new Character();
+    charzard.health = 120;
+    //charzard.otherStats = whatever
+    
+    assertEquals(Character.load("Charzard"), charzard);
   }
   
 }
